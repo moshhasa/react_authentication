@@ -49,7 +49,8 @@ const AuthForm = () => {
       })
       .then((data) => {
       
-        context.login(data.token)
+        const expirationTime = new Date(new Date().getTime() + (data.expiresIn * 1000));
+        context.login(data.token, expirationTime.toISOString())
         history.replace('/');
       })
       .catch((err) => {
